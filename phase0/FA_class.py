@@ -66,23 +66,27 @@ class DFA:
         return json.dumps(fa)
 
     def add_state(self, id: int | None = None) -> State:
-        ...
+        state = State(id)
+        self.states.append(state)
+        return state
 
     def add_transition(self, from_state: State, to_state: State, input_symbol: str) -> None:
-        ...
+        from_state.add_transition(input_symbol, to_state)
 
     def assign_initial_state(self, state: State) -> None:
         ...
 
     def add_final_state(self, state: State) -> None:
-        ...
+        self.final_states.append(state)
 
     def get_state_by_id(self, id) -> State | None:
-        ...
+        int_id = int(id)
+        for state in self.states:
+            if state.id == int_id:
+                return state
 
     def is_final(self, state: State) -> bool:
         ...
-
 
 
 class NFAState:
@@ -96,15 +100,15 @@ class NFA:
     @staticmethod
     def convert_DFA_instanse_to_NFA_instanse(dfa_machine: 'DFA') -> 'NFA':
         ...
-    
+
     @staticmethod
     def union(machine1: 'NFA', machine2: 'NFA') -> 'NFA':
         ...
-    
+
     @staticmethod
     def concat(machine1: 'NFA', machine2: 'NFA') -> 'NFA':
         ...
-    
+
     @staticmethod
     def star(machine: 'NFA') -> 'NFA':
         ...
