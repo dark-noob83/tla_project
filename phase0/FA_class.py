@@ -171,7 +171,21 @@ class NFA:
 
     @staticmethod
     def convert_DFA_instanse_to_NFA_instanse(dfa_machine: 'DFA') -> 'NFA':
-        ...
+        nfa_machine = NFA()
+        for state in dfa_machine.states:
+            nfa_machine.add_state(state.id)
+
+        nfa_machine.alphabet += dfa_machine.alphabet
+
+        nfa_machine.assign_initial_state(nfa_machine.get_state_by_id(dfa_machine.init_state))
+
+        for state1 in dfa_machine.states:
+            for sy in state1.transitions.keys():
+                    nfa_machine.add_transition(nfa_machine.get_state_by_id(state1.id),
+                                                 nfa_machine.get_state_by_id(state1.id), sy)
+
+        for f_state in dfa_machine.final_states:
+            nfa_machine.add_final_state(nfa_machine.get_state_by_id(f_state.id))
 
     @staticmethod
     def union(machine1: 'NFA', machine2: 'NFA') -> 'NFA':
