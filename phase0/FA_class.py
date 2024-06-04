@@ -76,6 +76,9 @@ class DFA:
     def assign_initial_state(self, state: State) -> None:
         self.init_state = state
 
+    def assign_alphabet(self, alphabets: list[str]):
+        self.alphabet = alphabets
+
     def add_final_state(self, state: State) -> None:
         self.final_states.append(state)
 
@@ -181,8 +184,8 @@ class NFA:
 
         for state1 in dfa_machine.states:
             for sy in state1.transitions.keys():
-                    nfa_machine.add_transition(nfa_machine.get_state_by_id(state1.id),
-                                                 nfa_machine.get_state_by_id(state1.id), sy)
+                nfa_machine.add_transition(nfa_machine.get_state_by_id(state1.id),
+                                           nfa_machine.get_state_by_id(state1.id), sy)
 
         for f_state in dfa_machine.final_states:
             nfa_machine.add_final_state(nfa_machine.get_state_by_id(f_state.id))
