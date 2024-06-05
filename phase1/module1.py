@@ -20,11 +20,12 @@ def solve(image: imageType) -> 'DFA':
         lentrt //= 4
     for kn in range(total_num_states):
         dp_is_final.append(False)
-
+    print(total_num_states)
     i = j = 0
     while True:
         u_i = dfa.get_state_by_id(i)
         if j < total_num_states - 1:
+            print(j)
             for k in range(4):
                 w = dp_states[i]
                 w_k = w + str(k)
@@ -53,19 +54,19 @@ def solve(image: imageType) -> 'DFA':
     for i in range(0, len(image), 2):
         for j in range(0, len(image), 2):
 
-            if image[i][j] == 1:
+            if image[i][j] == 0:
                 dp_is_final[indexi] = True
             indexi += 1
 
-            if image[i][j + 1] == 1:
+            if image[i][j + 1] == 0:
                 dp_is_final[indexi] = True
             indexi += 1
 
-            if image[i + 1][j] == 1:
+            if image[i + 1][j] == 0:
                 dp_is_final[indexi] = True
             indexi += 1
 
-            if image[i + 1][j + 1] == 1:
+            if image[i + 1][j + 1] == 0:
                 dp_is_final[indexi] = True
             indexi += 1
 
