@@ -93,6 +93,14 @@ class DFA:
             return True
         return False
 
+    def is_accept(self, word: str):
+        q:State = self.init_state
+        for a in word:
+            q = q.transitions[a]
+        if q in self.final_states:
+            return True
+        return False
+
 
 class NFAState(State):
     __counter = 0

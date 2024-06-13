@@ -15,12 +15,16 @@ def solve(image: imageType) -> 'DFA':
 
     total_num_states = 1
     lentrt = len(image) ** 2
+
     while lentrt >= 4:
         total_num_states += lentrt
         lentrt //= 4
+
     for kn in range(total_num_states):
         dp_is_final.append(False)
+
     print(total_num_states)
+
     i = j = 0
     while True:
         u_i = dfa.get_state_by_id(i)
@@ -30,11 +34,10 @@ def solve(image: imageType) -> 'DFA':
                 w = dp_states[i]
                 w_k = w + str(k)
                 finding = False
-                for save_w_states in dp_states:
-                    if save_w_states == w_k:
-                        finding = True
-                        q = dp_states.index(save_w_states)
-                        dfa.add_transition(u_i, dfa.get_state_by_id(q), str(k))
+                # if w_k in dp_states:
+                #     finding = True
+                #     q = dp_states.index(w_k)
+                #     dfa.add_transition(u_i, dfa.get_state_by_id(q), str(k))
 
                 if not finding:
                     j += 1
@@ -80,6 +83,7 @@ def solve(image: imageType) -> 'DFA':
 
     for xc in range(len(dp_is_final)):
         if dp_is_final[xc]:
+            print(xc)
             dfa.add_final_state(dfa.get_state_by_id(xc))
 
     return dfa
